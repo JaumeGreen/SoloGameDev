@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b85u6xwvgydtw"]
+
+[ext_resource type="Texture2D" uid="uid://ceckge6tx8yhf" path="res://Assets/Room/Room.png" id="1_hcn5v"]
+
+[node name="Habitacio" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("1_hcn5v")
