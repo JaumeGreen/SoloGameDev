@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Solo Game Dev"
-run/main_scene="res://habitacio.tscn"
+run/main_scene="res://Scripts/habitacio.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
