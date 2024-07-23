@@ -65,6 +65,17 @@ click={
 ]
 }
 
+[layer_names]
+
+2d_render/layer_1="Murs"
+2d_render/layer_2="Jugador"
+2d_render/layer_3="Enemics"
+2d_render/layer_4="Objectes"
+2d_physics/layer_1="Murs"
+2d_physics/layer_2="Jugador"
+2d_physics/layer_3="Enemics"
+2d_physics/layer_4="Objectes"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

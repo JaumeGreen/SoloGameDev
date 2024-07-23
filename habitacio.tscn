@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://b85u6xwvgydtw"]
+[gd_scene load_steps=52 format=3 uid="uid://b85u6xwvgydtw"]
 
 [ext_resource type="Texture2D" uid="uid://ceckge6tx8yhf" path="res://Assets/Room/Room.png" id="1_hcn5v"]
 [ext_resource type="Texture2D" uid="uid://dfqw5a3d47y0d" path="res://Assets/Room/cuina.PNG" id="2_fheks"]
@@ -373,6 +373,8 @@ animations = [{
 "speed": 1.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mcrfk"]
+
 [node name="Habitacio" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -398,6 +400,8 @@ texture = ExtResource("6_8exhd")
 [node name="Soloer" type="CharacterBody2D" parent="."]
 position = Vector2(640, 400)
 scale = Vector2(10, 10)
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("7_jjrt0")
 
 [node name="Personatge" type="AnimatedSprite2D" parent="Soloer"]
@@ -408,6 +412,7 @@ frame_progress = 0.746876
 script = ExtResource("8_ctgi8")
 
 [node name="CollisioPersonatge" type="CollisionShape2D" parent="Soloer"]
+shape = SubResource("CapsuleShape2D_mcrfk")
 
 [node name="Feina" type="Sprite2D" parent="."]
 position = Vector2(634, 654)
