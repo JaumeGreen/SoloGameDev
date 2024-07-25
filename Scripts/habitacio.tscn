@@ -1,5 +1,6 @@
-[gd_scene load_steps=62 format=3 uid="uid://b85u6xwvgydtw"]
+[gd_scene load_steps=65 format=3 uid="uid://b85u6xwvgydtw"]
 
+[ext_resource type="Script" path="res://Scripts/habitacio.gd" id="1_dsf66"]
 [ext_resource type="Texture2D" uid="uid://ceckge6tx8yhf" path="res://Assets/Room/Room.png" id="1_ft4xr"]
 [ext_resource type="Texture2D" uid="uid://tq1t527h33y0" path="res://Assets/Room/Llit.PNG" id="2_1llpo"]
 [ext_resource type="Texture2D" uid="uid://dwysode7mmm2h" path="res://Assets/Room/Oci.PNG" id="3_gc63v"]
@@ -419,7 +420,18 @@ height = 15.4
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pt73u"]
 size = Vector2(278, 139)
 
+[sub_resource type="LabelSettings" id="LabelSettings_gs2ia"]
+font_size = 60
+outline_size = 15
+outline_color = Color(0.00351917, 0.00351917, 0.00351917, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dmrjt"]
+font_size = 40
+font_color = Color(0.00016247, 0.00056982, 0.00303128, 1)
+outline_size = 20
+
 [node name="Habitacio" type="Node2D"]
+script = ExtResource("1_dsf66")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
@@ -537,6 +549,117 @@ collision_mask = 8
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_pt73u")
 
+[node name="Barres" type="Node2D" parent="."]
+position = Vector2(1184, -14)
+rotation = 0.47822
+
+[node name="Energy" type="ProgressBar" parent="Barres"]
+offset_left = 0.698975
+offset_top = 50.5609
+offset_right = 124.699
+offset_bottom = 77.5609
+tooltip_text = "Energy"
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Barres/Energy"]
+offset_left = 31.4539
+offset_top = -23.2993
+offset_right = 84.4539
+offset_bottom = -0.299265
+text = "Energy"
+
+[node name="Forçavoluntat" type="ProgressBar" parent="Barres"]
+offset_left = 20.3921
+offset_top = 100.711
+offset_right = 149.392
+offset_bottom = 127.711
+tooltip_text = "Willpower"
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Barres/Forçavoluntat"]
+offset_left = 23.2617
+offset_top = -20.8396
+offset_right = 101.262
+offset_bottom = 2.1604
+text = "Willpower"
+
+[node name="Sacietat" type="ProgressBar" parent="Barres"]
+offset_left = 40.8705
+offset_top = 150.081
+offset_right = 174.87
+offset_bottom = 177.081
+tooltip_text = "Saciety"
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Barres/Sacietat"]
+offset_left = 29.0473
+offset_top = -17.3693
+offset_right = 84.0473
+offset_bottom = 5.63071
+text = "Saciety"
+
+[node name="Sociabilitat" type="ProgressBar" parent="Barres"]
+offset_left = 67.5845
+offset_top = 197.42
+offset_right = 200.584
+offset_bottom = 224.42
+tooltip_text = "Sociability"
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Barres/Sociabilitat"]
+offset_left = 18.1756
+offset_top = -21.1069
+offset_right = 97.1756
+offset_bottom = 1.89307
+text = "Sociability"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 203.0
+offset_top = 49.0
+offset_right = 772.0
+offset_bottom = 100.0
+tooltip_text = "Game Progress"
+
+[node name="Label" type="Label" parent="ProgressBar"]
+layout_mode = 0
+offset_left = 226.0
+offset_top = -25.0
+offset_right = 343.0
+offset_bottom = -2.0
+text = "Game Progress"
+
+[node name="PasTemps" type="Node2D" parent="."]
+rotation = -0.47822
+
+[node name="Calendari" type="Label" parent="PasTemps"]
+offset_left = -36.2527
+offset_top = 81.0093
+offset_right = 58.7473
+offset_bottom = 175.009
+text = "17"
+label_settings = SubResource("LabelSettings_gs2ia")
+
+[node name="Rellotge" type="Label" parent="PasTemps"]
+offset_left = -71.8034
+offset_top = 193.67
+offset_right = 31.1966
+offset_bottom = 253.67
+text = "08:00"
+label_settings = SubResource("LabelSettings_dmrjt")
+
+[node name="Items joc" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="Items joc"]
+autostart = true
+
 [connection signal="body_entered" from="Llit/AreaLlit" to="Soloer" method="_on_area_llit_body_entered"]
 [connection signal="body_exited" from="Llit/AreaLlit" to="Soloer" method="_on_area_llit_body_exited"]
 [connection signal="body_entered" from="Oci/AreaOci" to="Soloer" method="_on_area_oci_body_entered"]
@@ -547,3 +670,4 @@ shape = SubResource("RectangleShape2D_pt73u")
 [connection signal="body_exited" from="Cuina/AreaCuina" to="Soloer" method="_on_area_cuina_body_exited"]
 [connection signal="body_entered" from="Feina/AreaFeina" to="Soloer" method="_on_area_feina_body_entered"]
 [connection signal="body_exited" from="Feina/AreaFeina" to="Soloer" method="_on_area_feina_body_exited"]
+[connection signal="timeout" from="Items joc/Timer" to="." method="_on_timer_timeout"]

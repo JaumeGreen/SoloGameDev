@@ -19,6 +19,7 @@ func _input(event):
 		target = get_global_mouse_position()
 	if event.is_action_pressed("ui_accept") && _zona=="Feina":
 		_xerrar.text = "treballant"
+		habscr.incr
 
 
 func look_direction(dir):
@@ -53,32 +54,32 @@ func _physics_process(_delta):
 	else :
 		_personatge.play("SStill")
 
-func _on_area_feina_body_entered(body):
+func _on_area_feina_body_entered(_body):
 	_zona = "Feina"
 
-func _on_area_feina_body_exited(body):
+func _on_area_feina_body_exited(_body):
 	_zona = ""
 
-func _on_area_cuina_body_entered(body):
+func _on_area_cuina_body_entered(_body):
 	_zona = "Cuina"
 
-func _on_area_cuina_body_exited(body):
+func _on_area_cuina_body_exited(_body):
 	_zona = ""
 
-func _on_area_porta_body_entered(body):
+func _on_area_porta_body_entered(_body):
 	_zona = "Porta"
 
-func _on_area_porta_body_exited(body):
+func _on_area_porta_body_exited(_body):
 	_zona = ""
 
-func _on_area_oci_body_entered(body):
+func _on_area_oci_body_entered(_body):
 	_zona = "Oci"
 
-func _on_area_oci_body_exited(body):
+func _on_area_oci_body_exited(_body):
 	_zona = ""
 
-func _on_area_llit_body_entered(body):
+func _on_area_llit_body_entered(_body):
 	_zona = "Llit"
 
-func _on_area_llit_body_exited(body):
+func _on_area_llit_body_exited(_body):
 	_zona = ""
