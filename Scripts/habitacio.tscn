@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://b85u6xwvgydtw"]
+[gd_scene load_steps=62 format=3 uid="uid://b85u6xwvgydtw"]
 
 [ext_resource type="Texture2D" uid="uid://ceckge6tx8yhf" path="res://Assets/Room/Room.png" id="1_ft4xr"]
 [ext_resource type="Texture2D" uid="uid://tq1t527h33y0" path="res://Assets/Room/Llit.PNG" id="2_1llpo"]
@@ -9,7 +9,32 @@
 [ext_resource type="Texture2D" uid="uid://bjct58l48v6nv" path="res://Assets/Personatges/8-Directional Gameboy Character Template/loose sprites.png" id="7_ikdr8"]
 [ext_resource type="Texture2D" uid="uid://br861uopahvrt" path="res://Assets/Room/Feina.PNG" id="8_2v0gy"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_by4oe"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pw2i0"]
+normal = Vector2(0, 1)
+distance = -190.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1l1lk"]
+distance = -357.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0nepn"]
+normal = Vector2(-0.944605, 0.32821)
+distance = -485.279
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8y2mj"]
+normal = Vector2(0.94299, 0.33282)
+distance = -486.139
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sr8pk"]
+size = Vector2(233, 307)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_efoks"]
+size = Vector2(238, 179)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l7pca"]
+size = Vector2(167, 305)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_edkou"]
+size = Vector2(161, 336)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c82bi"]
 atlas = ExtResource("7_ikdr8")
@@ -388,8 +413,8 @@ outline_size = 20
 outline_color = Color(0.589434, 0.416126, 0.341977, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mcrfk"]
-radius = 6.7
-height = 17.6
+radius = 5.5
+height = 15.4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pt73u"]
 size = Vector2(278, 139)
@@ -400,26 +425,68 @@ size = Vector2(278, 139)
 position = Vector2(640, 360)
 texture = ExtResource("1_ft4xr")
 
+[node name="StaticBodyParets" type="StaticBody2D" parent="Background"]
+collision_layer = 2
+
+[node name="Paretdalt" type="CollisionShape2D" parent="Background/StaticBodyParets"]
+shape = SubResource("WorldBoundaryShape2D_pw2i0")
+
+[node name="Paretbaix" type="CollisionShape2D" parent="Background/StaticBodyParets"]
+shape = SubResource("WorldBoundaryShape2D_1l1lk")
+
+[node name="Paretdreta" type="CollisionShape2D" parent="Background/StaticBodyParets"]
+shape = SubResource("WorldBoundaryShape2D_0nepn")
+
+[node name="Paretesquerra" type="CollisionShape2D" parent="Background/StaticBodyParets"]
+shape = SubResource("WorldBoundaryShape2D_8y2mj")
+
 [node name="Llit" type="Sprite2D" parent="."]
 position = Vector2(1155, 511)
 texture = ExtResource("2_1llpo")
+
+[node name="AreaLlit" type="Area2D" parent="Llit"]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShapeLlit" type="CollisionShape2D" parent="Llit/AreaLlit"]
+position = Vector2(-6.5, -3.5)
+shape = SubResource("RectangleShape2D_sr8pk")
 
 [node name="Oci" type="Sprite2D" parent="."]
 position = Vector2(330, 274)
 texture = ExtResource("3_gc63v")
 
+[node name="AreaOci" type="Area2D" parent="Oci"]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShapeOci" type="CollisionShape2D" parent="Oci/AreaOci"]
+position = Vector2(1, 0.5)
+shape = SubResource("RectangleShape2D_efoks")
+
 [node name="Porta" type="Sprite2D" parent="."]
 position = Vector2(882, 157)
 texture = ExtResource("4_5l02g")
 
-[node name="AreaCuina" type="Area2D" parent="."]
+[node name="AreaPorta" type="Area2D" parent="Porta"]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShapePorta" type="CollisionShape2D" parent="Porta/AreaPorta"]
+position = Vector2(-0.5, -5.5)
+shape = SubResource("RectangleShape2D_l7pca")
+
+[node name="Cuina" type="Sprite2D" parent="."]
 position = Vector2(77, 554)
-
-[node name="CollisioCuina" type="CollisionShape2D" parent="AreaCuina"]
-shape = SubResource("WorldBoundaryShape2D_by4oe")
-
-[node name="Cuina" type="Sprite2D" parent="AreaCuina/CollisioCuina"]
 texture = ExtResource("5_jxynx")
+
+[node name="AreaCuina" type="Area2D" parent="Cuina"]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisioCuina" type="CollisionShape2D" parent="Cuina/AreaCuina"]
+position = Vector2(3.5, -1)
+shape = SubResource("RectangleShape2D_edkou")
 
 [node name="Soloer" type="CharacterBody2D" parent="."]
 position = Vector2(640, 400)
@@ -470,5 +537,13 @@ collision_mask = 8
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_pt73u")
 
+[connection signal="body_entered" from="Llit/AreaLlit" to="Soloer" method="_on_area_llit_body_entered"]
+[connection signal="body_exited" from="Llit/AreaLlit" to="Soloer" method="_on_area_llit_body_exited"]
+[connection signal="body_entered" from="Oci/AreaOci" to="Soloer" method="_on_area_oci_body_entered"]
+[connection signal="body_exited" from="Oci/AreaOci" to="Soloer" method="_on_area_oci_body_exited"]
+[connection signal="body_entered" from="Porta/AreaPorta" to="Soloer" method="_on_area_porta_body_entered"]
+[connection signal="body_exited" from="Porta/AreaPorta" to="Soloer" method="_on_area_porta_body_exited"]
+[connection signal="body_entered" from="Cuina/AreaCuina" to="Soloer" method="_on_area_cuina_body_entered"]
+[connection signal="body_exited" from="Cuina/AreaCuina" to="Soloer" method="_on_area_cuina_body_exited"]
 [connection signal="body_entered" from="Feina/AreaFeina" to="Soloer" method="_on_area_feina_body_entered"]
 [connection signal="body_exited" from="Feina/AreaFeina" to="Soloer" method="_on_area_feina_body_exited"]

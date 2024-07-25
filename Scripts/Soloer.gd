@@ -55,9 +55,30 @@ func _physics_process(_delta):
 
 func _on_area_feina_body_entered(body):
 	_zona = "Feina"
-	_pensar.text = "res no funciona..."
-
 
 func _on_area_feina_body_exited(body):
 	_zona = ""
-	_pensar.text = ""
+
+func _on_area_cuina_body_entered(body):
+	_zona = "Cuina"
+
+func _on_area_cuina_body_exited(body):
+	_zona = ""
+
+func _on_area_porta_body_entered(body):
+	_zona = "Porta"
+
+func _on_area_porta_body_exited(body):
+	_zona = ""
+
+func _on_area_oci_body_entered(body):
+	_zona = "Oci"
+
+func _on_area_oci_body_exited(body):
+	_zona = ""
+
+func _on_area_llit_body_entered(body):
+	_zona = "Llit"
+
+func _on_area_llit_body_exited(body):
+	_zona = ""
