@@ -3,6 +3,9 @@ extends CharacterBody2D
 @export var speed = 400
 var target = position
 @onready var _personatge = $Personatge
+@onready var _xerrar = $Personatge/Xerrar
+@onready var _pensar = $Personatge/Pensar
+@onready var _zona = ""
 
 func get_input():
 	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -14,6 +17,9 @@ func get_input():
 func _input(event):
 	if event.is_action_pressed("click"):
 		target = get_global_mouse_position()
+	if event.is_action_pressed("ui_accept") && _zona=="Feina":
+		_xerrar.text = "treballant"
+
 
 func look_direction(dir):
 	if dir.x < -0.4 && dir.y < -0.4 :
@@ -47,5 +53,11 @@ func _physics_process(_delta):
 	else :
 		_personatge.play("SStill")
 
+func _on_area_feina_body_entered(body):
+	_zona = "Feina"
+	_pensar.text = "res no funciona..."
 
 
+func _on_area_feina_body_exited(body):
+	_zona = ""
+	_pensar.text = ""

@@ -1,6 +1,5 @@
-[gd_scene load_steps=56 format=3 uid="uid://b85u6xwvgydtw"]
+[gd_scene load_steps=55 format=3 uid="uid://b85u6xwvgydtw"]
 
-[ext_resource type="Script" path="res://Scripts/habitacio.gd" id="1_dsf66"]
 [ext_resource type="Texture2D" uid="uid://ceckge6tx8yhf" path="res://Assets/Room/Room.png" id="1_ft4xr"]
 [ext_resource type="Texture2D" uid="uid://tq1t527h33y0" path="res://Assets/Room/Llit.PNG" id="2_1llpo"]
 [ext_resource type="Texture2D" uid="uid://dwysode7mmm2h" path="res://Assets/Room/Oci.PNG" id="3_gc63v"]
@@ -396,7 +395,6 @@ height = 17.6
 size = Vector2(278, 139)
 
 [node name="Habitacio" type="Node2D"]
-script = ExtResource("1_dsf66")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
@@ -472,6 +470,5 @@ collision_mask = 8
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_pt73u")
 
-[connection signal="body_entered" from="Feina/AreaFeina" to="." method="_on_area_feina_body_entered"]
-[connection signal="body_exited" from="Feina/AreaFeina" to="." method="_on_area_feina_body_exited"]
-[connection signal="input_event" from="Feina/AreaFeina" to="." method="_on_area_feina_input_event"]
+[connection signal="body_entered" from="Feina/AreaFeina" to="Soloer" method="_on_area_feina_body_entered"]
+[connection signal="body_exited" from="Feina/AreaFeina" to="Soloer" method="_on_area_feina_body_exited"]
