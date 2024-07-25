@@ -1,5 +1,6 @@
-[gd_scene load_steps=52 format=3 uid="uid://b85u6xwvgydtw"]
+[gd_scene load_steps=56 format=3 uid="uid://b85u6xwvgydtw"]
 
+[ext_resource type="Script" path="res://Scripts/habitacio.gd" id="1_dsf66"]
 [ext_resource type="Texture2D" uid="uid://ceckge6tx8yhf" path="res://Assets/Room/Room.png" id="1_ft4xr"]
 [ext_resource type="Texture2D" uid="uid://tq1t527h33y0" path="res://Assets/Room/Llit.PNG" id="2_1llpo"]
 [ext_resource type="Texture2D" uid="uid://dwysode7mmm2h" path="res://Assets/Room/Oci.PNG" id="3_gc63v"]
@@ -374,9 +375,28 @@ animations = [{
 "speed": 1.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_04wkg"]
+font_size = 7
+font_color = Color(0, 0.788235, 0, 1)
+outline_size = 3
+outline_color = Color(0.0823529, 0.435294, 0.443137, 1)
+shadow_color = Color(0.59999, 0.189266, 0.173537, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lft5n"]
+font_size = 9
+font_color = Color(0.00566115, 0.00566115, 0.00566115, 1)
+outline_size = 20
+outline_color = Color(0.589434, 0.416126, 0.341977, 1)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mcrfk"]
+radius = 6.7
+height = 17.6
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pt73u"]
+size = Vector2(278, 139)
 
 [node name="Habitacio" type="Node2D"]
+script = ExtResource("1_dsf66")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
@@ -406,8 +426,8 @@ texture = ExtResource("5_jxynx")
 [node name="Soloer" type="CharacterBody2D" parent="."]
 position = Vector2(640, 400)
 scale = Vector2(10, 10)
-collision_layer = 2
-collision_mask = 0
+collision_layer = 13
+collision_mask = 2
 script = ExtResource("6_46poj")
 
 [node name="Personatge" type="AnimatedSprite2D" parent="Soloer"]
@@ -416,9 +436,42 @@ animation = &"SStill"
 autoplay = "SStill"
 frame_progress = 0.746876
 
+[node name="Xerrar" type="Label" parent="Soloer/Personatge"]
+offset_left = 4.0
+offset_top = -14.0
+offset_right = 54.0
+offset_bottom = -1.0
+size_flags_horizontal = 4
+label_settings = SubResource("LabelSettings_04wkg")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Pensar" type="Label" parent="Soloer/Personatge"]
+offset_left = -29.0
+offset_top = -31.0
+offset_right = 29.0
+offset_bottom = -8.0
+label_settings = SubResource("LabelSettings_lft5n")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="CollisioPersonatge" type="CollisionShape2D" parent="Soloer"]
+scale = Vector2(1, 1)
 shape = SubResource("CapsuleShape2D_mcrfk")
 
 [node name="Feina" type="Sprite2D" parent="."]
 position = Vector2(634, 654)
 texture = ExtResource("8_2v0gy")
+
+[node name="AreaFeina" type="Area2D" parent="Feina"]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShapeFeina" type="CollisionShape2D" parent="Feina/AreaFeina"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_pt73u")
+
+[connection signal="body_entered" from="Feina/AreaFeina" to="." method="_on_area_feina_body_entered"]
+[connection signal="body_exited" from="Feina/AreaFeina" to="." method="_on_area_feina_body_exited"]
+[connection signal="input_event" from="Feina/AreaFeina" to="." method="_on_area_feina_input_event"]

@@ -47,3 +47,5 @@ func _physics_process(_delta):
 	else :
 		_personatge.play("SStill")
 
+
+
