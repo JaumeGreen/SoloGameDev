@@ -13,6 +13,13 @@ var target = position
 @onready var _voluntat=$/root/Habitacio/Barres/Forçavoluntat
 @onready var _sacietat=$/root/Habitacio/Barres/Sacietat
 @onready var _sociabilitat=$/root/Habitacio/Barres/Sociabilitat
+@onready var _accions = { #localització : [temps, progress, energia, voluntat, saciabilitat, sociabilitat]
+	"Feina" : [30,1,-5,-5,-3,-2],
+	"Llit" : [480,0,50,40,-20,-10],
+	"Cuina" : [60,0,10,5,50,-1],
+	"Porta" : [120,0,-5,0,0,50],
+	"Oci" : [60,0,-10,30,-5,-5],
+}
 
 func get_input():
 	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -41,13 +48,13 @@ func sociabilitat(canvi) :
 func _input(event):
 	if event.is_action_pressed("click"):
 		target = get_global_mouse_position()
-	if event.is_action_pressed("ui_accept") && _zona=="Feina":
-		acciotriga(15)
-		progres(1)
-		energia(-10)
-		voluntat(-5)
-		sacietat(-5)
-		sociabilitat(-3)
+	if event.is_action_pressed("ui_accept") && _zona!="":
+		acciotriga(_accions[_zona][0])
+		progres(_accions[_zona][1])
+		energia(_accions[_zona][2])
+		voluntat(_accions[_zona][3])
+		sacietat(_accions[_zona][4])
+		sociabilitat(_accions[_zona][5])
 
 
 

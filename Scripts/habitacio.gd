@@ -10,8 +10,9 @@ func increment_time(minuts):
 	
 func format_time():
 	if minutes>=60 :
+		var inchor = minutes/60
 		minutes %= 60
-		hour+=1
+		hour+=inchor
 		if hour>=24 :
 			hour %= 24
 			date+=1
