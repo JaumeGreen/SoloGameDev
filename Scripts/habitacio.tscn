@@ -657,7 +657,7 @@ label_settings = SubResource("LabelSettings_dmrjt")
 
 [node name="Items joc" type="Node2D" parent="."]
 
-[node name="Timer" type="Timer" parent="Items joc"]
+[node name="Tempsjoc" type="Timer" parent="Items joc"]
 autostart = true
 
 [connection signal="body_entered" from="Llit/AreaLlit" to="Soloer" method="_on_area_llit_body_entered"]
@@ -670,4 +670,4 @@ autostart = true
 [connection signal="body_exited" from="Cuina/AreaCuina" to="Soloer" method="_on_area_cuina_body_exited"]
 [connection signal="body_entered" from="Feina/AreaFeina" to="Soloer" method="_on_area_feina_body_entered"]
 [connection signal="body_exited" from="Feina/AreaFeina" to="Soloer" method="_on_area_feina_body_exited"]
-[connection signal="timeout" from="Items joc/Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Items joc/Tempsjoc" to="." method="_on_timer_timeout"]

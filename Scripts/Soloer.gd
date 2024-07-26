@@ -6,6 +6,13 @@ var target = position
 @onready var _xerrar = $Personatge/Xerrar
 @onready var _pensar = $Personatge/Pensar
 @onready var _zona = ""
+@onready var _hab = $"/root/Habitacio"
+@onready var _tempsjoc = $"/root/Habitacio/Items joc/Tempsjoc"
+@onready var _progres = $"/root/Habitacio/ProgressBar"
+@onready var _energia=$/root/Habitacio/Barres/Energy
+@onready var _voluntat=$/root/Habitacio/Barres/Forçavoluntat
+@onready var _sacietat=$/root/Habitacio/Barres/Sacietat
+@onready var _sociabilitat=$/root/Habitacio/Barres/Sociabilitat
 
 func get_input():
 	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -14,12 +21,34 @@ func get_input():
 		target = position
 	return input_direction
 
+func acciotriga(minuts) : 
+	_tempsjoc.stop()
+	_hab.increment_time(minuts)
+	_hab.show_time()
+	_tempsjoc.start(1)
+
+func progres(percentatge) : 
+	_progres.value+=percentatge
+func energia(canvi) : 
+	_energia.value+=canvi
+func voluntat(canvi) : 
+	_voluntat.value+=canvi
+func sacietat(canvi) : 
+	_sacietat.value+=canvi
+func sociabilitat(canvi) : 
+	_sociabilitat.value+=canvi
+
 func _input(event):
 	if event.is_action_pressed("click"):
 		target = get_global_mouse_position()
 	if event.is_action_pressed("ui_accept") && _zona=="Feina":
-		_xerrar.text = "treballant"
-		habscr.incr
+		acciotriga(15)
+		progres(1)
+		energia(-10)
+		voluntat(-5)
+		sacietat(-5)
+		sociabilitat(-3)
+
 
 
 func look_direction(dir):
