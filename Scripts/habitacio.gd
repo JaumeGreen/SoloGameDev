@@ -30,8 +30,11 @@ func _on_timer_timeout():
 	show_time();
 	$"/root/Habitacio/Items joc/Tempsjoc".start(1)
 
-
 func _on_progress_bar_value_changed(value):
 	if value>=$ProgressBar.max_value:
-		get_node("/root/global").goto_scene("res://Scripts/guanyar.tscn")
+			Global.goto_scene("res://Scripts/guanyar.tscn")
 		
+
+func _on_sacietat_value_changed(value):
+	if value<=0:
+			Global.goto_scene("res://Scripts/perdre.tscn")

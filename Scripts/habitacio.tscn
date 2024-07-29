@@ -702,5 +702,6 @@ clip_text = true
 [connection signal="body_exited" from="Cuina/AreaCuina" to="Soloer" method="_on_area_cuina_body_exited"]
 [connection signal="body_entered" from="Feina/AreaFeina" to="Soloer" method="_on_area_feina_body_entered"]
 [connection signal="body_exited" from="Feina/AreaFeina" to="Soloer" method="_on_area_feina_body_exited"]
+[connection signal="value_changed" from="Barres/Sacietat" to="." method="_on_sacietat_value_changed"]
 [connection signal="value_changed" from="ProgressBar" to="." method="_on_progress_bar_value_changed"]
 [connection signal="timeout" from="Items joc/Tempsjoc" to="." method="_on_timer_timeout"]
