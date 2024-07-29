@@ -14,11 +14,19 @@ var target = position
 @onready var _sacietat=$/root/Habitacio/Barres/Sacietat
 @onready var _sociabilitat=$/root/Habitacio/Barres/Sociabilitat
 @onready var _accions = { #localització : [temps, progress, energia, voluntat, saciabilitat, sociabilitat]
-	"Feina" : [30,1,-5,-5,-3,-2],
+	"Feina" : [30,40,-5,-5,-3,-2],
 	"Llit" : [480,0,50,40,-20,-10],
 	"Cuina" : [60,0,10,5,50,-1],
 	"Porta" : [120,0,-5,0,0,50],
 	"Oci" : [60,0,-10,30,-5,-5],
+}
+@onready var _accionsText = {
+	"Feina" : ["Action 1\nWork on the game\nGain progress\nLose energy", "Action 2\nTutorial\nGain knowledge\nLose energy", "Action 3\nPlan\nBetter future progress\nLose energy"],
+	"Llit" : ["Action 1\nSleep\nGain energy\nLose time", "Action 2\nRest\nGain little energy\nLose little time", "Action 3\nMeditate\nImprove willpower\nLose time"],
+	"Cuina" : ["Action 1\nEat\nGain saciety", "Action 2\nSugar+caffeine\nGain energy\nBad for your body", "Action 3\nPrepare future meal\nFaster meals for a while\nMental relaxation"],
+	"Porta" : ["Action 1\nFriends' outing\nGain sociability\nLose time", "Action 2\nGym\nImprove body\nLose time", "Action 3\nWalk\nMental relaxation"],
+	"Oci" : ["Action 1\nGame with friends\nGain sociability\nGain willpower", "Action 2\nHard solo game\nGain willpower\nLose time", "Action 3\nWatch series/browse sites\nMental relaxation"],
+	"" : ["Action 1\nGo to any item\nto enable this", "Action 2\nGo to any item\nto enable this", "Action 3\nGo to any item\nto enable this"],
 }
 
 func get_input():
@@ -90,32 +98,55 @@ func _physics_process(_delta):
 	else :
 		_personatge.play("SStill")
 
+func _setactionstext(disabled):
+	$/root/Habitacio/Accions/Accio1.set_text(_accionsText[_zona][0])
+	$/root/Habitacio/Accions/Accio2.set_text(_accionsText[_zona][1])
+	$/root/Habitacio/Accions/Accio3.set_text(_accionsText[_zona][2])
+	$/root/Habitacio/Accions/Accio1.disabled = disabled
+	$/root/Habitacio/Accions/Accio2.disabled = disabled
+	$/root/Habitacio/Accions/Accio3.disabled = disabled
+
 func _on_area_feina_body_entered(_body):
 	_zona = "Feina"
+	_setactionstext(false)
 
 func _on_area_feina_body_exited(_body):
-	_zona = ""
+	if _zona=="Feina" :
+		_zona = ""
+		_setactionstext(true)
 
 func _on_area_cuina_body_entered(_body):
 	_zona = "Cuina"
+	_setactionstext(false)
 
 func _on_area_cuina_body_exited(_body):
-	_zona = ""
+	if _zona=="Cuina" :
+		_zona = ""
+		_setactionstext(true)
 
 func _on_area_porta_body_entered(_body):
 	_zona = "Porta"
+	_setactionstext(false)
 
 func _on_area_porta_body_exited(_body):
-	_zona = ""
+	if _zona=="Porta" :
+		_zona = ""
+		_setactionstext(true)
 
 func _on_area_oci_body_entered(_body):
 	_zona = "Oci"
+	_setactionstext(false)
 
 func _on_area_oci_body_exited(_body):
-	_zona = ""
+	if _zona=="Oci" :
+		_zona = ""
+		_setactionstext(true)
 
 func _on_area_llit_body_entered(_body):
 	_zona = "Llit"
+	_setactionstext(false)
 
 func _on_area_llit_body_exited(_body):
-	_zona = ""
+	if _zona=="Llit" :
+		_zona = ""
+		_setactionstext(true)

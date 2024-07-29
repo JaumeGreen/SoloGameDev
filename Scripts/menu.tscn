@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://pptu5d862qe1"]
+
+[ext_resource type="Texture2D" uid="uid://dnlvq8a2574hk" path="res://Assets/Room.png" id="1_bdimr"]
+[ext_resource type="Script" path="res://Scripts/menu.gd" id="1_fan2o"]
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_fan2o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("1_bdimr")
+
+[node name="Jugar" type="Button" parent="."]
+offset_left = 477.0
+offset_top = 157.0
+offset_right = 851.0
+offset_bottom = 257.0
+text = "Play game"
+
+[connection signal="pressed" from="Jugar" to="." method="_on_jugar_pressed"]

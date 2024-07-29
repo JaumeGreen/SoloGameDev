@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqxwu08o2liqk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m4wpl"]
+font_size = 56
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ne2t"]
+font_size = 30
+
+[node name="Perdre" type="Node2D"]
+
+[node name="Principal" type="Label" parent="."]
+offset_left = 495.0
+offset_top = 148.0
+offset_right = 763.0
+offset_bottom = 239.0
+text = "You lost!"
+label_settings = SubResource("LabelSettings_m4wpl")
+
+[node name="Raó" type="Label" parent="."]
+offset_left = 238.0
+offset_top = 302.0
+offset_right = 1134.0
+offset_bottom = 606.0
+text = "Reasons"
+label_settings = SubResource("LabelSettings_8ne2t")

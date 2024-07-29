@@ -29,3 +29,9 @@ func _on_timer_timeout():
 	format_time()
 	show_time();
 	$"/root/Habitacio/Items joc/Tempsjoc".start(1)
+
+
+func _on_progress_bar_value_changed(value):
+	if value>=$ProgressBar.max_value:
+		get_node("/root/global").goto_scene("res://Scripts/guanyar.tscn")
+		
