@@ -705,3 +705,6 @@ clip_text = true
 [connection signal="value_changed" from="Barres/Sacietat" to="." method="_on_sacietat_value_changed"]
 [connection signal="value_changed" from="ProgressBar" to="." method="_on_progress_bar_value_changed"]
 [connection signal="timeout" from="Items joc/Tempsjoc" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Accions/Accio1" to="Soloer" method="_on_accio_1_pressed"]
+[connection signal="pressed" from="Accions/Accio2" to="Soloer" method="_on_accio_2_pressed"]
+[connection signal="pressed" from="Accions/Accio3" to="Soloer" method="_on_accio_3_pressed"]
