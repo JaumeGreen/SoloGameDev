@@ -401,13 +401,6 @@ animations = [{
 "speed": 1.0
 }]
 
-[sub_resource type="LabelSettings" id="LabelSettings_04wkg"]
-font_size = 7
-font_color = Color(0, 0.788235, 0, 1)
-outline_size = 3
-outline_color = Color(0.0823529, 0.435294, 0.443137, 1)
-shadow_color = Color(0.59999, 0.189266, 0.173537, 0)
-
 [sub_resource type="LabelSettings" id="LabelSettings_lft5n"]
 font_size = 8
 font_color = Color(0.00566115, 0.00566115, 0.00566115, 1)
@@ -430,6 +423,12 @@ outline_color = Color(0.00351917, 0.00351917, 0.00351917, 1)
 font_size = 40
 font_color = Color(0.00016247, 0.00056982, 0.00303128, 1)
 outline_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_04wkg"]
+font_size = 200
+outline_size = 3
+outline_color = Color(0.0823529, 0.435294, 0.443137, 1)
+shadow_color = Color(0.59999, 0.189266, 0.173537, 0)
 
 [node name="Habitacio" type="Node2D"]
 script = ExtResource("1_dsf66")
@@ -513,17 +512,6 @@ sprite_frames = SubResource("SpriteFrames_ecftw")
 animation = &"SStill"
 autoplay = "SStill"
 frame_progress = 0.746876
-
-[node name="Xerrar" type="Label" parent="Soloer/Personatge"]
-offset_left = 4.0
-offset_top = -14.0
-offset_right = 54.0
-offset_bottom = -1.0
-size_flags_horizontal = 4
-label_settings = SubResource("LabelSettings_04wkg")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
 
 [node name="Pensar" type="Label" parent="Soloer/Personatge"]
 offset_left = -40.5
@@ -691,10 +679,29 @@ offset_top = 5.0
 offset_right = 767.0
 offset_bottom = 174.0
 disabled = true
-text = "Action 1
+text = "Action 3
 Go to any item
 to enable this"
 clip_text = true
+
+[node name="Pausa" type="Button" parent="Accions"]
+offset_left = 982.0
+offset_top = 25.0
+offset_right = 1107.0
+offset_bottom = 147.0
+text = "4
+Pause"
+
+[node name="Xerrar" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1276.0
+offset_bottom = 721.0
+size_flags_horizontal = 4
+label_settings = SubResource("LabelSettings_04wkg")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [connection signal="body_entered" from="Llit/AreaLlit" to="Soloer" method="_on_area_llit_body_entered"]
 [connection signal="body_exited" from="Llit/AreaLlit" to="Soloer" method="_on_area_llit_body_exited"]
@@ -712,3 +719,4 @@ clip_text = true
 [connection signal="pressed" from="Accions/Accio1" to="Soloer" method="_on_accio_1_pressed"]
 [connection signal="pressed" from="Accions/Accio2" to="Soloer" method="_on_accio_2_pressed"]
 [connection signal="pressed" from="Accions/Accio3" to="Soloer" method="_on_accio_3_pressed"]
+[connection signal="pressed" from="Accions/Pausa" to="." method="_on_pausa_pressed"]

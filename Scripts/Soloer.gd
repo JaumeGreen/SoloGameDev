@@ -246,6 +246,10 @@ func sociabilitat(canvi) :
 			refrescarnegativitat()
 
 func _unhandled_input(event):
+	if event.is_action_pressed("acte4"):
+		_hab._on_pausa_pressed()
+	if _hab.paused:
+		return
 	if event.is_action_pressed("click"):
 		target = get_global_mouse_position()
 	if event.is_action_pressed("acte1") && _zona!="":
@@ -340,6 +344,8 @@ func negativitat(_ts):
 
 
 func _physics_process(_delta):
+	if _hab.paused:
+		return
 	var dir = position.direction_to(target)
 	velocity = dir * speed
 	var dir2 = get_input()
@@ -412,6 +418,8 @@ func _on_area_llit_body_exited(_body):
 
 
 func _on_accio_1_pressed():
+	if _hab.paused:
+		return
 	if _zona!="":
 		acciotriga(_accions[_zona][0][0])
 		progres(_accions[_zona][0][1])
@@ -423,6 +431,8 @@ func _on_accio_1_pressed():
 
 
 func _on_accio_2_pressed():
+	if _hab.paused:
+		return
 	if _zona!="":
 		acciotriga(_accions[_zona][1][0])
 		progres(_accions[_zona][1][1])
@@ -433,6 +443,8 @@ func _on_accio_2_pressed():
 		specialaction2()
 
 func _on_accio_3_pressed():
+	if _hab.paused:
+		return
 	if _zona!="":
 		acciotriga(_accions[_zona][2][0])
 		progres(_accions[_zona][2][1])

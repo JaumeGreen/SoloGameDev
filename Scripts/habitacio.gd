@@ -3,6 +3,7 @@ extends Node2D
 @export var hour = 8
 @export var minutes = 0
 @export var date = 17
+@export var paused = false
 
 func increment_time(minuts):
 	minutes+=minuts
@@ -43,3 +44,12 @@ func _on_progress_bar_value_changed(value):
 func _on_sacietat_value_changed(value):
 	if value<=0:
 		Global.goto_scene("res://Scripts/perdre.tscn")
+
+
+func _on_pausa_pressed():
+	paused = !paused
+	$"/root/Habitacio/Items joc/Tempsjoc".paused=paused
+	if paused:
+		$Xerrar.text="Paused"
+	else:
+		$Xerrar.text=""
