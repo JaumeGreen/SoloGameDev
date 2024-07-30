@@ -401,15 +401,15 @@ animations = [{
 "speed": 1.0
 }]
 
-[sub_resource type="LabelSettings" id="LabelSettings_lft5n"]
-font_size = 8
-font_color = Color(0.00566115, 0.00566115, 0.00566115, 1)
-outline_size = 20
-outline_color = Color(0.589434, 0.416126, 0.341977, 1)
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mcrfk"]
-radius = 5.5
-height = 15.4
+radius = 77.0
+height = 174.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_lft5n"]
+font_size = 60
+font_color = Color(0.00566115, 0.00566115, 0.00566115, 1)
+outline_size = 60
+outline_color = Color(0.589434, 0.416126, 0.341977, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pt73u"]
 size = Vector2(278, 139)
@@ -502,32 +502,32 @@ shape = SubResource("RectangleShape2D_edkou")
 
 [node name="Soloer" type="CharacterBody2D" parent="."]
 position = Vector2(640, 400)
-scale = Vector2(10, 10)
 collision_layer = 13
 collision_mask = 2
 script = ExtResource("6_46poj")
 
 [node name="Personatge" type="AnimatedSprite2D" parent="Soloer"]
+scale = Vector2(10, 10)
 sprite_frames = SubResource("SpriteFrames_ecftw")
 animation = &"SStill"
 autoplay = "SStill"
 frame_progress = 0.746876
 
-[node name="Pensar" type="Label" parent="Soloer/Personatge"]
-offset_left = -40.5
-offset_top = -27.4
-offset_right = 51.5
-offset_bottom = -4.4
+[node name="CollisioPersonatge" type="CollisionShape2D" parent="Soloer"]
+scale = Vector2(1, 1)
+shape = SubResource("CapsuleShape2D_mcrfk")
+
+[node name="Pensar" type="Label" parent="Soloer"]
+offset_left = -350.0
+offset_top = -272.0
+offset_right = 351.0
+offset_bottom = -68.0
 label_settings = SubResource("LabelSettings_lft5n")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 clip_text = true
 script = ExtResource("9_dhoxu")
-
-[node name="CollisioPersonatge" type="CollisionShape2D" parent="Soloer"]
-scale = Vector2(1, 1)
-shape = SubResource("CapsuleShape2D_mcrfk")
 
 [node name="Feina" type="Sprite2D" parent="."]
 position = Vector2(634, 654)
@@ -550,7 +550,7 @@ offset_left = 0.698975
 offset_top = 50.5609
 offset_right = 124.699
 offset_bottom = 77.5609
-tooltip_text = "Energy"
+mouse_filter = 2
 step = 1.0
 value = 100.0
 
@@ -566,7 +566,7 @@ offset_left = 20.3921
 offset_top = 100.711
 offset_right = 149.392
 offset_bottom = 127.711
-tooltip_text = "Willpower"
+mouse_filter = 2
 step = 1.0
 value = 100.0
 
@@ -582,7 +582,7 @@ offset_left = 40.8705
 offset_top = 150.081
 offset_right = 174.87
 offset_bottom = 177.081
-tooltip_text = "Saciety"
+mouse_filter = 2
 step = 1.0
 value = 100.0
 
@@ -598,7 +598,7 @@ offset_left = 67.5845
 offset_top = 197.42
 offset_right = 200.584
 offset_bottom = 224.42
-tooltip_text = "Sociability"
+mouse_filter = 2
 step = 1.0
 value = 100.0
 
@@ -614,7 +614,7 @@ offset_left = 499.0
 offset_top = 588.0
 offset_right = 769.0
 offset_bottom = 615.0
-tooltip_text = "Game Progress"
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="ProgressBar"]
 layout_mode = 0

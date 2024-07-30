@@ -3,8 +3,7 @@ extends CharacterBody2D
 @export var speed = 400
 var target = position
 @onready var _personatge = $Personatge
-@onready var _xerrar = $Personatge/Xerrar
-@onready var _pensar = $Personatge/Pensar
+@onready var _pensar = $Pensar
 @onready var _zona = ""
 @onready var _hab = $"/root/Habitacio"
 @onready var _tempsjoc = $"/root/Habitacio/Items joc/Tempsjoc"
