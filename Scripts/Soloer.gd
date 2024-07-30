@@ -23,7 +23,7 @@ var target = position
 @onready var _accionsText = {
 	"Feina" : ["Action 1\nWork on the game\nGain progress\nLose energy", "Action 2\nTutorial\nGain knowledge\nLose energy", "Action 3\nPlan\nImprove growth"],
 	"Llit" : ["Action 1\nSleep\nGain energy\nLose time", "Action 2\nRest\nGain little energy\nLose little time", "Action 3\nMeditate\nImprove willpower\nMental relaxation"],
-	"Cuina" : ["Action 1\nEat\nGain saciety", "Action 2\nSugar bomb\nGain energy\nUnhealthy", "Action 3\nMeal prep\nFaster eating\nMental relaxation"],
+	"Cuina" : ["Action 1\nEat\nGain satiety", "Action 2\nSugar bomb\nGain energy\nUnhealthy", "Action 3\nMeal prep\nFaster eating\nMental relaxation"],
 	"Oci" : ["Action 1\nGame friends\nGain sociability\nGain willpower", "Action 2\nHard game\nImprove willpower\nLose time", "Action 3\nTimewaster\nMental relaxation"],
 	"Porta" : ["Action 1\nFriends' outing\nGain sociability\nLose time", "Action 2\nGym\nImprove body\nLose time", "Action 3\nWalk\nMental relaxation"],
 	"" : ["Action 1\nGo to any item\nto enable this", "Action 2\nGo to any item\nto enable this", "Action 3\nGo to any item\nto enable this"],
@@ -31,6 +31,28 @@ var target = position
 @onready var knowledge = 1.0
 @onready var mealprep = 1.0
 @onready var gymbuddies = 0
+@onready var resilience = 30
+@onready var negatiu = 480 + 30 #temps fins següent negativitat, començem 8 del matí
+
+@onready var excuses = [
+	"I don't want to work", 
+	"I need some rest", #energy
+	"I want to play", #wilpower
+	"I'm hungry", #satiety
+	"Were are my friends?", #socialization
+]
+@onready var pors = [
+	"I'm bad at this",
+	"Not going well",
+	"It'll be horrible",
+	"I will lose",
+	"It won't matter"
+]
+@onready var obstacle = 0 #0 res/real, 1 excuses, 2 pors
+@onready var excusa = -1
+@onready var porreal = -1
+
+var rng = RandomNumberGenerator.new()
 
 func get_input():
 	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -39,30 +61,113 @@ func get_input():
 		target = position
 	return input_direction
 
+
+func modifyvalue(value, limit1, limit2, increment1, increment2):
+	if value<limit1:
+		return value + increment1
+	elif value<limit2:
+		return value + increment2
+	return value
+	
+
+func anulapor():
+	excusa=-1
+	porreal=-1
+	obstacle = 0
+	resilience = modifyvalue(resilience, 120, 280, 10, 5)
+	_pensar.text = ""
+	refrescarnegativitat()
+
+func foraexcusa():
+	excusa=-1
+	obstacle = 0
+	_pensar.text = ""
+	if porreal!=-1:
+		obstacle = 2
+		_pensar.text = pors[porreal]
+	else:
+		refrescarnegativitat()
+
+
 func specialaction1():
-	pass
+	if _zona=="Oci":
+		if porreal==4:
+			anulapor()
+		elif excusa==0 || excusa==2 || excusa==4   :
+			foraexcusa()
+	if _zona=="Porta":
+		if porreal==4:
+			anulapor()
+		elif excusa==4:
+			foraexcusa()
+	if _zona=="Llit":
+		if excusa==0 || excusa ==1:
+			foraexcusa()
+	if _zona=="Cuina":
+		if excusa==3:
+			foraexcusa()
+		
 
 func specialaction2():
 	if _zona=="Feina":
-		knowledge+0.1
+		knowledge = modifyvalue(knowledge,4,10,0.5,0.1)
+		if porreal==0:
+			anulapor()
 	if _zona=="Cuina":
-		_energia.max_value -= 5
+		_energia.max_value = modifyvalue(_energia.max_value,50,1000,1,5)
+		if excusa==3:
+			foraexcusa()
 	if _zona=="Oci":
-		_voluntat.max_value +=5
+		_voluntat.max_value = modifyvalue(_voluntat.max_value,150,200,5,1)
+		if porreal==3:
+			anulapor()
+		elif excusa==0 || excusa==2:
+			foraexcusa()
 	if _zona=="Porta":
-		_energia.max_value += 5
-		_voluntat.max_value +=5
-		_sociabilitat.value += gymbuddies *5
+		_energia.max_value = modifyvalue(_energia.max_value,150,200,5,1)
+		_voluntat.max_value = modifyvalue(_voluntat.max_value,150,200,5,1)
+		_sociabilitat.value += gymbuddies *4
 		if gymbuddies<10 :
 			gymbuddies+=1
-		
+		if porreal==3:
+			anulapor()
+		elif excusa==4:
+			foraexcusa()
+	if _zona=="Llit":
+		if excusa==0 || excusa==1:
+			foraexcusa()
+
 func specialaction3():
 	if _zona=="Feina":
-		_progres.max_value -= int(1*knowledge*knowledge)
+		_progres.max_value -= int(1*knowledge)
+		if porreal==0 || porreal==2:
+			anulapor()
+		elif excusa==0:
+			foraexcusa()
 	if _zona=="Llit":
-		_voluntat.max_value += 5
-	if _zona=="Cuina" && mealprep>0.2:
-		mealprep-=0.1
+		_voluntat.max_value = modifyvalue(_voluntat.max_value,150,200,5,1)
+		if porreal>=1:
+			anulapor()
+		elif excusa==0 || excusa==1:
+			foraexcusa()
+	if _zona=="Cuina":
+		if porreal==1:
+			anulapor()
+		elif excusa==0 || excusa==3:
+			foraexcusa()
+		if mealprep>0.2:
+			mealprep-=0.1
+	if _zona=="Oci":
+		if porreal==1:
+			anulapor()
+		elif excusa==0 || excusa==2:
+			foraexcusa()
+	if _zona=="Porta":
+		if porreal==1:
+			anulapor()
+		elif excusa==0:
+			foraexcusa()
+
 
 func acciotriga(minuts) : 
 	if _energia.value<30 :
@@ -81,6 +186,10 @@ func acciotriga(minuts) :
 	_tempsjoc.start(1)
 
 func progres(percentatge) : 
+	if porreal>=0:
+		percentatge*= 0.1
+	if excusa>=0:
+		percentatge*= 0.5
 	if _energia.value<30 :
 		percentatge *= 0.5
 	if _voluntat.value<30 :
@@ -92,40 +201,77 @@ func progres(percentatge) :
 	_progres.value+=int(percentatge*knowledge)
 func energia(canvi) : 
 	_energia.value+=canvi
+	if excusa==1 && canvi>0 && _energia.value>50:
+		excusa=-1
+		obstacle = 0
+		_pensar.text = ""
+		if porreal!=-1:
+			obstacle = 2
+			_pensar.text = pors[porreal]
+		else:
+			refrescarnegativitat()
+
 func voluntat(canvi) : 
 	_voluntat.value+=canvi
+	if excusa==2 && canvi>0 && _voluntat.value>50:
+		excusa=-1
+		obstacle = 0
+		_pensar.text = ""
+		if porreal!=-1:
+			obstacle = 2
+			_pensar.text = pors[porreal]
+		else:
+			refrescarnegativitat()
 func sacietat(canvi) : 
 	_sacietat.value+=canvi
+	if excusa==3 && canvi>0 && _sacietat.value>50:
+		excusa=-1
+		obstacle = 0
+		_pensar.text = ""
+		if porreal!=-1:
+			obstacle = 2
+			_pensar.text = pors[porreal]
+		else:
+			refrescarnegativitat()
 func sociabilitat(canvi) : 
 	_sociabilitat.value+=canvi
+	if excusa==4 && canvi>0 && _sociabilitat.value>50:
+		excusa=-1
+		obstacle = 0
+		_pensar.text = ""
+		if porreal!=-1:
+			obstacle = 2
+			_pensar.text = pors[porreal]
+		else:
+			refrescarnegativitat()
 
 func _unhandled_input(event):
 	if event.is_action_pressed("click"):
 		target = get_global_mouse_position()
 	if event.is_action_pressed("acte1") && _zona!="":
 		acciotriga(_accions[_zona][0][0])
+		specialaction1()
 		progres(_accions[_zona][0][1])
 		energia(_accions[_zona][0][2])
 		voluntat(_accions[_zona][0][3])
 		sacietat(_accions[_zona][0][4])
 		sociabilitat(_accions[_zona][0][5])
-		specialaction1()
 	if event.is_action_pressed("acte2") && _zona!="":
 		acciotriga(_accions[_zona][1][0])
+		specialaction2()
 		progres(_accions[_zona][1][1])
 		energia(_accions[_zona][1][2])
 		voluntat(_accions[_zona][1][3])
 		sacietat(_accions[_zona][1][4])
 		sociabilitat(_accions[_zona][1][5])
-		specialaction2()
 	if event.is_action_pressed("acte3") && _zona!="":
 		acciotriga(_accions[_zona][2][0])
+		specialaction3()
 		progres(_accions[_zona][2][1])
 		energia(_accions[_zona][2][2])
 		voluntat(_accions[_zona][2][3])
 		sacietat(_accions[_zona][2][4])
 		sociabilitat(_accions[_zona][2][5])
-		specialaction3()
 
 
 
@@ -147,6 +293,51 @@ func look_direction(dir):
 	if dir.x < 0.4 && dir.x > -0.4 && dir.y > 0.4 :
 		_personatge.play("S")
 
+func refrescarnegativitat():
+	negatiu = _hab.tempsactual()+resilience*rng.randi_range(1,5)
+
+func negativitat(_ts):
+	#triar pensament negatiu
+	#real, excusa o por
+	var rd = rng.randi_range(0,2)
+	if rd == 0:
+		var motiu=[]
+		#real
+		if _energia.value <50:
+			motiu.append(1)
+		if _voluntat.value <50:
+			motiu.append(2)
+		if _sacietat.value <50:
+			motiu.append(3)
+		if _sociabilitat.value <50:
+			motiu.append(4)
+		if motiu.size()==0:
+			refrescarnegativitat()
+		else :
+			#show real reason to stop
+			excusa = motiu[rng.randi_range(0,motiu.size()-1)]
+			_pensar.text = excuses[excusa]
+			negatiu = 30000
+	elif rd==1:
+		#excusa
+		excusa = rng.randi_range(0,4)
+		_pensar.text = excuses[excusa]
+		obstacle = 1 #excusa
+		negatiu = 30000
+	else:
+		negatiu = 30000
+		obstacle = 2
+		porreal = rng.randi_range(0,4)
+		#por -> visible o amagada
+		rd = rng.randi_range(0,1)
+		if rd :
+			#visible
+			_pensar.text = pors[porreal]
+		else:
+			#amagada
+			excusa = rng.randi_range(0,4)
+			_pensar.text = excuses[excusa]
+
 
 func _physics_process(_delta):
 	var dir = position.direction_to(target)
@@ -163,6 +354,8 @@ func _physics_process(_delta):
 		move_and_slide()
 	else :
 		_personatge.play("SStill")
+	if _hab.tempsactual()>negatiu:
+		negativitat(_hab.tempsactual())
 
 func _setactionstext(disabled):
 	$/root/Habitacio/Accions/Accio1.set_text(_accionsText[_zona][0])

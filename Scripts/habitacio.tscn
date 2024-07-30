@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://b85u6xwvgydtw"]
+[gd_scene load_steps=66 format=3 uid="uid://b85u6xwvgydtw"]
 
 [ext_resource type="Script" path="res://Scripts/habitacio.gd" id="1_dsf66"]
 [ext_resource type="Texture2D" uid="uid://ceckge6tx8yhf" path="res://Assets/Room/Room.png" id="1_ft4xr"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/Soloer.gd" id="6_46poj"]
 [ext_resource type="Texture2D" uid="uid://bjct58l48v6nv" path="res://Assets/Personatges/8-Directional Gameboy Character Template/loose sprites.png" id="7_ikdr8"]
 [ext_resource type="Texture2D" uid="uid://br861uopahvrt" path="res://Assets/Room/Feina.PNG" id="8_2v0gy"]
+[ext_resource type="Script" path="res://Scripts/Pensar.gd" id="9_dhoxu"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pw2i0"]
 normal = Vector2(0, 1)
@@ -408,7 +409,7 @@ outline_color = Color(0.0823529, 0.435294, 0.443137, 1)
 shadow_color = Color(0.59999, 0.189266, 0.173537, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_lft5n"]
-font_size = 9
+font_size = 8
 font_color = Color(0.00566115, 0.00566115, 0.00566115, 1)
 outline_size = 20
 outline_color = Color(0.589434, 0.416126, 0.341977, 1)
@@ -525,13 +526,16 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="Pensar" type="Label" parent="Soloer/Personatge"]
-offset_left = -29.0
-offset_top = -31.0
-offset_right = 29.0
-offset_bottom = -8.0
+offset_left = -40.5
+offset_top = -27.4
+offset_right = 51.5
+offset_bottom = -4.4
 label_settings = SubResource("LabelSettings_lft5n")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 1
+clip_text = true
+script = ExtResource("9_dhoxu")
 
 [node name="CollisioPersonatge" type="CollisionShape2D" parent="Soloer"]
 scale = Vector2(1, 1)
@@ -599,7 +603,7 @@ offset_left = 29.0473
 offset_top = -17.3693
 offset_right = 84.0473
 offset_bottom = 5.63071
-text = "Saciety"
+text = "Satiety"
 
 [node name="Sociabilitat" type="ProgressBar" parent="Barres"]
 offset_left = 67.5845

@@ -19,6 +19,9 @@ func format_time():
 			if date>31 :
 				print("game over")
 
+func tempsactual():
+	return ((date-17)*24+hour)*60+minutes
+
 func show_time():
 	$"/root/Habitacio/PasTemps/Calendari".text="%02d"% date
 	var hora = "%02d:%02d"
@@ -28,13 +31,15 @@ func _on_timer_timeout():
 	minutes+=1
 	format_time()
 	show_time();
+	if date>=31 && hour>=8:
+		Global.goto_scene("res://Scripts/perdre.tscn")
 	$"/root/Habitacio/Items joc/Tempsjoc".start(1)
 
 func _on_progress_bar_value_changed(value):
 	if value>=$ProgressBar.max_value:
-			Global.goto_scene("res://Scripts/guanyar.tscn")
+		Global.goto_scene("res://Scripts/guanyar.tscn")
 		
 
 func _on_sacietat_value_changed(value):
 	if value<=0:
-			Global.goto_scene("res://Scripts/perdre.tscn")
+		Global.goto_scene("res://Scripts/perdre.tscn")
